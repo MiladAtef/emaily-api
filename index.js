@@ -1,14 +1,17 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
 require('./models/user');
 require('./services/passport');
 
 const app = express();
+
+app.use(bodyParser.json());
 
 //using cookie sessions
 app.use(
@@ -20,7 +23,25 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/', (req, res) => {
+	res.send('<h1>Welcome</h1>');
+});
+
+// routes
 require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
+
+// this chunk of code to serve build folder from react in production
+// and it must be here in the bottom of the file (because of the above routes)
+if (process.env.NODE_ENV === 'production') {
+	app.use(static('client/build'));
+
+	//send the index.html file if the route doesn't exist in the server
+	const path = require('path');
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	});
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
