@@ -23,10 +23,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req, res) => {
-	res.send('<h1>Welcome</h1>');
-});
-
 // routes
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
