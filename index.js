@@ -34,7 +34,7 @@ require('./routes/billingRoutes')(app);
 // this chunk of code to serve build folder from react in production
 // and it must be here in the bottom of the file (because of the above routes)
 if (process.env.NODE_ENV === 'production') {
-	app.use(static('client/build'));
+	app.use(express.static('client/build'));
 
 	//send the index.html file if the route doesn't exist in the server
 	const path = require('path');
