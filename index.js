@@ -4,9 +4,24 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
-require('./models/user');
+mongoose.connect(
+	keys.mongoURI,
+	{
+		useNewUrlParser: true,
+		useCreateIndex: true
+	},
+	err => {
+		if (!err) {
+			console.log('MongoDB Connection Succeeded.');
+		} else {
+			console.log('Error in DB connection: ' + err);
+		}
+	}
+);
+
+require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 
 const app = express();
