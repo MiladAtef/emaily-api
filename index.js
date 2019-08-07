@@ -20,7 +20,7 @@ mongoose.connect(
 	}
 );
 
-require('./models/User');
+require('./models/user');
 require('./models/Survey');
 require('./services/passport');
 
