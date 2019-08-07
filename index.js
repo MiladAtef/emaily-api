@@ -41,6 +41,7 @@ app.use(passport.session());
 // routes
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 // this chunk of code to serve build folder from react in production
 // and it must be here in the bottom of the file (because of the above routes)
