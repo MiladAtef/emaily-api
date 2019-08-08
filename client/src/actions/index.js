@@ -16,3 +16,13 @@ export const handleStripeToken = token => async dispatch => {
 		payload: res.data
 	});
 };
+
+export const submitSurvey = (values, history) => async dispatch => {
+	const res = await axios.post('/api/surveys', values);
+
+	history.push('/surveys'); // to redirect the user to the dashboard after submitting the form
+	dispatch({
+		type: FETCH_USER,
+		payload: res.data
+	});
+};

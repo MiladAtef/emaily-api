@@ -9,7 +9,7 @@ import { createLogger } from 'redux-logger';
 import App from './components/App';
 import reducers from './reducers';
 
-//development only axios helpers for testing the api
+//development only, axios helpers for testing the api
 import axios from 'axios';
 window.axios = axios;
 
