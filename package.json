@@ -11,8 +11,9 @@
 		"start": "node index.js",
 		"server": "nodemon index.js",
 		"client": "npm run start --prefix client",
-		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+		"dev": "concurrently \"npm run server\" \"npm run client\" \"npm run webhook\"",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+		"webhook": "forever sendgrid_webhook.js"
 	},
 	"keywords": [],
 	"author": "",
@@ -32,6 +33,7 @@
 		"stripe": "^7.6.0"
 	},
 	"devDependencies": {
+		"forever": "^1.0.0",
 		"nodemon": "^1.19.1"
 	}
 }
