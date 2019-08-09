@@ -9,6 +9,15 @@ const Mailer = require('../services/Mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 
 module.exports = app => {
+	app.get('/api/surveys', requireLogin, async (req, res) => {
+		// we fetch all the surveys that belongs to that user
+		// but we exclude the recipients property from each survey
+		const surveys = await Survey.find({ _user: req.user.id }).select({
+			recipients: false
+		});
+		res.send(surveys);
+	});
+
 	app.get('/api/surveys/:surveyId/:choice', (req, res) => {
 		res.send('thank you for voting!');
 	});
@@ -52,8 +61,6 @@ module.exports = app => {
 
 		//compact removes any undefined elements in the array
 		// uniqBy func will remove any duplicate elements (objects) that has the same two properties, surveyId and email
-
-		console.log(events);
 		res.send({});
 	});
 

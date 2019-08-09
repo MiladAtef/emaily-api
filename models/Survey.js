@@ -11,7 +11,7 @@ const surveySchema = new Schema({
 	no: { type: Number, default: 0 },
 	dateSent: Date,
 	lastResponded: Date,
-	_use: { type: Schema.Types.ObjectId, ref: 'User' }
+	_user: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
 mongoose.model('surveys', surveySchema);
