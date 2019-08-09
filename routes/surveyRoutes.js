@@ -16,7 +16,7 @@ module.exports = app => {
 	app.post('/api/surveys/webhooks', (req, res) => {
 		const p = new Path('/api/surveys/:surveyId/:choice'); // here we make a matcher
 
-		_chain(req.body)
+		_.chain(req.body)
 			.map(({ email, url }) => {
 				const pathname = new URL(url).pathname; // to just get the path name out of the url
 				const match = p.test(pathname); // if the pathname contains the surveyId and the choice, match will be an object with both properties, and if one of them doesn't exist match will be null
